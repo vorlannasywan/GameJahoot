@@ -58,7 +58,7 @@ export default class Answer extends Component {
           xs={6}
         >
           <Button variant="contained" className={ styles.red } value="a" onClick={ this.handleClick } fullWidth>
-            <FavoriteIcon className={ styles.icons } />
+            A
           </Button>
         </Grid>
         <Grid

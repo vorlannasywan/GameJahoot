@@ -106,7 +106,8 @@ export default class Lobby extends Component {
             className={ styles.statusBar }
           >
             <div className={ styles.title }>
-              <div className={ styles.join }><span>Join at <strong>jeffreyquan.github.io/quizy-client</strong></span></div>
+              <div className={ styles.join }><span>Join at <strong>{ `${window.location.hostname}:${window.location.port}` }</strong></span>
+              </div>
               <div className={ styles.gamePin }>with Game PIN:</div>
               <div className={ styles.pin }>{ this.state.pin }</div>
             </div>
