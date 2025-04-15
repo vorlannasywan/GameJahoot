@@ -16,6 +16,8 @@ const playerRouter = require('./api/routes/playerRoutes');
 
 mongoose.Promise = global.Promise;
 
+require('dotenv').config();
+console.log("MONGODB_URI from .env:", process.env.MONGODB_URI); 
 const db = process.env.MONGODB_URI;
 
 mongoose.set('useFindAndModify', false);
@@ -34,17 +36,20 @@ const io = socketIO(server, {
   pingTimeout: 60000
 });
 
-let whitelist = ['https://jeffreyquan.github.io', 'http://localhost:3333']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-};
+// let whitelist = ['https://jeffreyquan.github.io', 'http://localhost:3333', 'http://192.168.72.143']
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// };
 
+var corsOptions = {
+  origin: '*'
+};
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -53,8 +58,8 @@ app.use('/quizzes', quizRouter);
 app.use('/games', gameRouter);
 app.use('/players', gameRouter);
 
-server.listen(port, () => {
-  console.log(`Server listening at http://localhost:${ port }`);
+server.listen(port, '0.0.0.0', () => {
+  console.log(`Server listening at http://0.0.0.0:${ port }`);
 });
 
 app.use((req, res) => {
